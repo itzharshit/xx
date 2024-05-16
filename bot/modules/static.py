@@ -1,12 +1,7 @@
 WelcomeText = \
 """
-Hi **%(first_name)s**, send me a file or add me as an admin to any channel to instantly generate file links.
-
-Add me to your channel to instantly generate links for any downloadable media. Once received, I will automatically attach appropriate buttons to the post containing the URL. If you want me to ignore a given post, you can insert `#pass` in the post.
-
-- /start to get this message.
-- /info to get user info.
-- /log to get bot logs. (admin only!)
+Hello %(first_name)s, send me a video or any other file to get stream, download and retrieval link of it.
+Also you can add me to your channel to attach links of any media file on that post.
 """
 
 UserInfoText = \
@@ -26,35 +21,37 @@ UserInfoText = \
 
 FileLinksText = \
 """
-**Download Link:**
+**Links successfully generated**
+
+**📥 Download Link:**
 `%(dl_link)s`
-**Telegram File:**
+**💻 Telegram File Link:**
 `%(tg_link)s`
 """
 
 MediaLinksText = \
 """
-**Download Link:**
+**📥 Download Link:**
 `%(dl_link)s`
-**Stream Link:**
+**🖥 Watch Link:**
 `%(stream_link)s`
-**Telegram File:**
+**💻 Telegram File Link:**
 `%(tg_link)s`
 """
 
 InvalidQueryText = \
 """
-Query data mismatched.
+Your url is invalid.
 """
 
 MessageNotExist = \
 """
-File revoked or not exist.
+File is missing in database.
 """
 
 LinkRevokedText = \
 """
-The link has been revoked. It may take some time for the changes to take effect.
+This link is not available in database, most probably it has been deleted by its owner.
 """
 
 InvalidPayloadText = \
@@ -64,5 +61,5 @@ Invalid payload.
 
 MediaTypeNotSupportedText = \
 """
-Sorry, this media type is not supported.
+Sorry, this file is not supported.
 """
