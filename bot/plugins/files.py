@@ -8,6 +8,9 @@ from bot.config import Telegram, Server
 from bot.modules.decorators import verify_user
 from bot.modules.telegram import send_message, filter_files
 from bot.modules.static import *
+import pyshorteners
+
+s = pyshorteners.Shortener()
 
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files))
 @verify_user(private=True)
@@ -17,8 +20,8 @@ async def user_file_handler(event: NewMessage.Event | Message):
     message = await send_message(event.message)
     message_id = message.id
 
-    dl_link = f'{Server.BASE_URL}/dl/{message_id}?code={secret_code}'
-    tg_link = f'{Server.BASE_URL}/file/{message_id}?code={secret_code}'
+    dl_link = s.dagd.short(f'{Server.BASE_URL}/dl/{message_id}?code={secret_code}')
+    tg_link = s.dagd.short(f'{Server.BASE_URL}/file/{message_id}?code={secret_code}')
     deep_link = f'https://t.me/{Telegram.BOT_USERNAME}?start=file_{message_id}_{secret_code}'
 
     if (event.document and 'video' in event.document.mime_type) or event.video:
@@ -27,12 +30,11 @@ async def user_file_handler(event: NewMessage.Event | Message):
             message= MediaLinksText % {'dl_link': dl_link, 'tg_link': tg_link, 'tg_link': tg_link, 'stream_link': stream_link},
             buttons=[
                 [
-                    Button.url('Download', dl_link),
-                    Button.url('Stream', stream_link)
+                    Button.url('Download file', dl_link),
+                    Button.url('Stream file', stream_link)
                 ],
                 [
-                    Button.url('Get File', deep_link),
-                    Button.inline('Revoke', f'rm_{message_id}_{secret_code}')
+                    Button.inline('Delete File', f'rm_{message_id}_{secret_code}')
                 ]
             ]
         )
@@ -41,11 +43,11 @@ async def user_file_handler(event: NewMessage.Event | Message):
             message=FileLinksText % {'dl_link': dl_link, 'tg_link': tg_link},
             buttons=[
                 [
-                    Button.url('Download', dl_link),
+                    Button.url('Download File', dl_link),
                     Button.url('Get File', deep_link)
                 ],
                 [
-                    Button.inline('Revoke', f'rm_{message_id}_{secret_code}')
+                    Button.inline('Delete File', f'rm_{message_id}_{secret_code}')
                 ]
             ]
         )
@@ -61,8 +63,8 @@ async def channel_file_handler(event: NewMessage.Event | Message):
     message = await send_message(event.message)
     message_id = message.id
 
-    dl_link = f"{Server.BASE_URL}/dl/{message_id}?code={secret_code}"
-    tg_link = f"{Server.BASE_URL}/file/{message_id}?code={secret_code}"
+    dl_link = s.dagd.short(f"{Server.BASE_URL}/dl/{message_id}?code={secret_code}")
+    tg_link = s.dagd.short(f"{Server.BASE_URL}/file/{message_id}?code={secret_code}")
 
     if (event.document and "video" in event.document.mime_type) or event.video:
         stream_link = f"{Server.BASE_URL}/stream/{message_id}?code={secret_code}"
@@ -70,8 +72,7 @@ async def channel_file_handler(event: NewMessage.Event | Message):
         try:
             await event.edit(
                 buttons=[
-                    [Button.url("Download", dl_link), Button.url("Stream", stream_link)],
-                    [Button.url("Get File", tg_link)],
+                    [Button.url("Download File", dl_link), Button.url("Stream File", stream_link)]
                 ]
             )
         except (
@@ -84,12 +85,12 @@ async def channel_file_handler(event: NewMessage.Event | Message):
         try:
             await event.edit(
                 buttons=[
-                    [Button.url("Download", dl_link), Button.url("Get File", tg_link)]
+                    [Button.url("Download File", dl_link), Button.url("Retrieve File", tg_link)]
                 ]
             )
         except (
             MessageAuthorRequiredError,
             MessageIdInvalidError,
             MessageNotModifiedError,
-        ):
+        )
             pass
