@@ -32,18 +32,26 @@ async def send_log(event: NewMessage.Event | Message):
 async def users(event: Message):
     await event.reply('Total Users Count:', len(db.fetch_all("users")))
 
-@TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/ban$'))
+@TelegramBot.on(events.NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/ban (\d+)$'))
 @verify_user(private=True)
 async def ban(event: Message):
-    user_id = 
+    match = re.match(r'^/ban (\d+)$', event.raw_text)
+    if not match:
+        await event.reply("Please provide a valid user ID.")
+        return
+    user_id = int(match.group(1))
     if not await db.is_inserted("ban", user_id):
         await db.insert("ban", user_id)
     await event.reply('Done banned!')
 
-@TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/unban$'))
+@TelegramBot.on(events.NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/unban (\d+)$'))
 @verify_user(private=True)
-async def unban(event: Message):
-    user_id =
+async def ban(event: Message):
+    match = re.match(r'^/unban (\d+)$', event.raw_text)
+    if not match:
+        await event.reply("Please provide a valid user ID.")
+        return
+    user_id = int(match.group(1))
     if await db.is_inserted("ban", user_id):
         await db.delete("ban", user_id)
     await event.reply('User unbanned!')
@@ -73,6 +81,3 @@ async def bcast(event: Message):
             log.error("Broadcast error:\nChat: %d\nError: %s", int(i), brd_er)
             error += 1
     await xx.edit("Broadcast completed.\nSuccess: {}\nFailed: {}".format(done, error))
-
-
-    
