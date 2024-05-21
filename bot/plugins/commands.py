@@ -5,6 +5,7 @@ from bot import TelegramBot
 from bot.config import Telegram
 from bot.modules.static import *
 from bot.modules.decorators import verify_user
+from bot.database import is_inserted, insert, fetch_all, delete 
 
 @TelegramBot.on(NewMessage(incoming=True, pattern=r'^/start$'))
 @verify_user(private=True)
