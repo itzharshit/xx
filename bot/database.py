@@ -76,3 +76,6 @@ REDIS_URI = Database.REDIS_URI.split(":")
 host = REDIS_URI[0]
 port = int(REDIS_URI[1])
 password = Database.REDIS_PASSWORD
+
+# db Instance 
+db = RedisClient(host, port, password)
