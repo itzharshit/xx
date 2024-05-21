@@ -32,11 +32,6 @@ async def send_log(event: NewMessage.Event | Message):
 async def users(event: Message):
     await event.reply('Total Users Count:', len(fetch_all("users")))
 
-@TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/bcast$'))
-@verify_user(private=True)
-async def bcast(event: Message):
-    await event.reply('Total Users Count:', len(fetch_all("users")))
-
 @TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/ban$'))
 @verify_user(private=True)
 async def ban(event: Message):
@@ -53,3 +48,31 @@ async def unban(event: Message):
         await Database.delete("ban", user_id)
     await event.reply('User unbanned!')
 
+@TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/bcast$'))
+@verify_user(private=True)
+async def bcast(event: Message):
+    if not event.reply_to_msg_id:
+        return await event.reply(
+            "Please use `/broadcast` as reply to the message you want to broadcast."
+        )
+    msg = await event.get_reply_message()
+    xx = await event.reply("In progress...")
+    users = await fetch_all('users')
+    done = error = 0
+    for i in users:
+        try:
+            await TelegramBot.send_message(
+                int(i),
+                msg.text.format(user=(await TelegramBot.get_entity(int(i))).first_name),
+                file=msg.media,
+                buttons=msg.buttons,
+                link_preview=False,
+            )
+            done += 1
+        except Exception as brd_er:
+            log.error("Broadcast error:\nChat: %d\nError: %s", int(i), brd_er)
+            error += 1
+    await xx.edit("Broadcast completed.\nSuccess: {}\nFailed: {}".format(done, error))
+
+
+    
