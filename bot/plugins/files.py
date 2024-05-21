@@ -27,27 +27,26 @@ async def user_file_handler(event: NewMessage.Event | Message):
     if (event.document and 'video' in event.document.mime_type) or event.video:
         stream_link = s.dagd.short(f'{Server.BASE_URL}/stream/{message_id}?code={secret_code}')
         await event.reply(
-            message= MediaLinksText % {'dl_link': dl_link, 'tg_link': tg_link, 'tg_link': tg_link, 'stream_link': stream_link},
+            message= MediaLinksText % {'dl_link': dl_link, 'stream_link': stream_link},
             buttons=[
                 [
-                    Button.url('Download file', dl_link),
-                    Button.url('Stream file', stream_link)
+                    Button.url('📥 Download file', dl_link),
+                    Button.url('💻 Stream file', stream_link)
                 ],
                 [
-                    Button.inline('Delete File', f'rm_{message_id}_{secret_code}')
+                    Button.inline('🗑️ Delete File', f'rm_{message_id}_{secret_code}')
                 ]
             ]
         )
     else:
         await event.reply(
-            message=FileLinksText % {'dl_link': dl_link, 'tg_link': tg_link},
+            message=FileLinksText % {'dl_link': dl_link},
             buttons=[
                 [
-                    Button.url('Download File', dl_link),
-                    Button.url('Get File', deep_link)
+                    Button.url('📥 Download File', dl_link)
                 ],
                 [
-                    Button.inline('Delete File', f'rm_{message_id}_{secret_code}')
+                    Button.inline('🗑️ Delete File', f'rm_{message_id}_{secret_code}')
                 ]
             ]
         )
@@ -71,7 +70,7 @@ async def channel_file_handler(event: NewMessage.Event | Message):
         try:
             await event.edit(
                 buttons=[
-                    [Button.url("Download File", dl_link), Button.url("Stream File", stream_link)]
+                    [Button.url("📥 Download File", dl_link), Button.url("Stream File", stream_link)]
                 ]
             )
         except (
@@ -84,7 +83,7 @@ async def channel_file_handler(event: NewMessage.Event | Message):
         try:
             await event.edit(
                 buttons=[
-                    [Button.url("Download File", dl_link), Button.url("Retrieve File", tg_link)]
+                    [Button.url("📥 Download File", dl_link), Button.url("Retrieve File", tg_link)]
                 ]
             )
         except (
