@@ -8,7 +8,7 @@ from bot.config import Telegram, Server
 from bot.modules.decorators import verify_user
 from bot.modules.telegram import send_message, filter_files
 from bot.modules.static import *
-from bot.database import Database
+from bot.database import db
 import pyshorteners
 
 s = pyshorteners.Shortener()
@@ -16,7 +16,7 @@ s = pyshorteners.Shortener()
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files))
 @verify_user(private=True)
 async def user_file_handler(event: NewMessage.Event | Message):
-    if await Database.is_inserted("users", event.sender.id):
+    if await db.is_inserted("ban", event.sender.id):
         return await event.reply("You are banned.")
     secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
     event.message.text = f'`{secret_code}`'
@@ -57,7 +57,7 @@ async def user_file_handler(event: NewMessage.Event | Message):
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files, forwards=False))
 @verify_user()
 async def channel_file_handler(event: NewMessage.Event | Message):
-    if await Database.is_inserted("users", event.sender.id):
+    if await db.is_inserted("ban", event.sender.id):
         return await event.reply("You are banned.")
     if event.raw_text and '#pass' in event.raw_text:
         return
