@@ -10,21 +10,21 @@ db = Redis(
     decode_responses=True,
 )
 
-def s_l(text):  # Returns List
+def s_l(text):
     return text.split(" ")
 
-def l_s(list):  # Returns String  # sourcery skip: avoid-builtin-shadow
+def l_s(list):  # Returns String
     str = " ".join(f"{x}" for x in list)
     return str.strip()
 
-async def is_inserted(var, id):  # Take int or str with numbers only , Returns Boolean
+async def is_inserted(var, id):
     try:
         users = await fetch_all(var)
         return str(id) in users
     except Exception as e:
         return False
 
-async def insert(var, id):  # Take int or str with numbers only , Returns Boolean
+async def insert(var, id): 
     try:
         users = await fetch_all(var)
         users.append(id)
@@ -34,7 +34,7 @@ async def insert(var, id):  # Take int or str with numbers only , Returns Boolea
         return False
         print(e)
         
-async def fetch_all(var):  # Returns List
+async def fetch_all(var): 
     users = await db.get(var)
     return [""] if users is None or users == "" else s_l(users)
     
