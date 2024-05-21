@@ -30,7 +30,7 @@ async def send_log(event: NewMessage.Event | Message):
 @TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/users$'))
 @verify_user(private=True)
 async def users(event: Message):
-    await event.reply('Total Users Count:', len(fetch_all("users")))
+    await event.reply('Total Users Count:', len(Database.fetch_all("users")))
 
 @TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/ban$'))
 @verify_user(private=True)
@@ -57,7 +57,7 @@ async def bcast(event: Message):
         )
     msg = await event.get_reply_message()
     xx = await event.reply("In progress...")
-    users = await fetch_all('users')
+    users = await Database.fetch_all('users')
     done = error = 0
     for i in users:
         try:
