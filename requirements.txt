@@ -3,5 +3,4 @@ cryptg
 quart
 uvicorn
 pyshorteners
-aioredis 
-hiredis
+redis
