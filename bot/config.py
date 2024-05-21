@@ -14,7 +14,10 @@ class Server:
     BASE_URL = env.get("BASE_URL", "http://telegramfiles.eu.org")
     BIND_ADDRESS = env.get("BIND_ADDRESS", "0.0.0.0")
     PORT = int(env.get("PORT", 8080))
-
+class database:
+    REDIS_URI = env.get("REDIS_URI", "0.0.0.0")
+    REDIS_PASSWORD = env.get("REDIS_PASSWORD", "0.0.0.0")
+    
 # LOGGING CONFIGURATION
 LOGGER_CONFIG_JSON = {
     'version': 1,
