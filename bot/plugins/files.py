@@ -57,7 +57,6 @@ async def user_file_handler(event: NewMessage.Event | Message):
 async def channel_file_handler(event: NewMessage.Event | Message):
     if event.raw_text and '#pass' in event.raw_text:
         return
-    
     secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
     event.message.text = f"`{secret_code}`"
     message = await send_message(event.message)
@@ -92,5 +91,5 @@ async def channel_file_handler(event: NewMessage.Event | Message):
             MessageAuthorRequiredError,
             MessageIdInvalidError,
             MessageNotModifiedError,
-        )
+        ):
             pass
