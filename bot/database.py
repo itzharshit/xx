@@ -1,12 +1,12 @@
 from aioredis import Redis
 from os import environ
-from config import REDIS_URI, REDIS_PASSWORD 
+from bot.config import Database
 
-REDIS_URI = REDIS_URI.split(":")
+REDIS_URI = Database.REDIS_URI.split(":")
 db = Redis(
     host=REDIS_URI[0],
     port=REDIS_URI[1],
-    password=REDIS_PASSWORD,
+    password=Database.REDIS_PASSWORD,
     decode_responses=True,
 )
 
