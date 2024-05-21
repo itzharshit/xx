@@ -10,12 +10,7 @@ from bot.modules.decorators import verify_user
 @verify_user(private=True)
 async def welcome(event: NewMessage.Event | Message):
     await event.reply(
-        message=WelcomeText % {'first_name': event.sender.first_name},
-        buttons=[
-            [
-                Button.url('Add to Channel', f'https://t.me/{Telegram.BOT_USERNAME}?startchannel&admin=post_messages+edit_messages+delete_messages')
-            ]
-        ]
+        message=WelcomeText % {'first_name': event.sender.first_name}
     )
 
 @TelegramBot.on(NewMessage(chats=Telegram.OWNER_ID, incoming=True, pattern=r'^/info$'))
