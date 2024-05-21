@@ -10,7 +10,8 @@ from bot.database import Database
 @TelegramBot.on(NewMessage(incoming=True, pattern=r'^/start$'))
 @verify_user(private=True)
 async def welcome(event: NewMessage.Event | Message):
-    
+    if await Database.is_inserted("users", event.sender.id):
+        return await event.reply("You are banned")
     await event.reply(
         message=WelcomeText % {'first_name': event.sender.first_name}
     )
