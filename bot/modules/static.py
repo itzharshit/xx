@@ -21,20 +21,26 @@ UserInfoText = \
 
 FileLinksText = \
 """
-**Links successfully generated**
+**🔗 Links successfully generated!**
 
 **📥 Download Link:**
 `%(dl_link)s`
+
+
 **💻 Telegram File Link:**
 `%(tg_link)s`
 """
 
 MediaLinksText = \
 """
+**🔗 Links successfully generated!**
+
 **📥 Download Link:**
 `%(dl_link)s`
+
 **🖥 Stream Link:**
 `%(stream_link)s`
+
 **💻 Telegram File Link:**
 `%(tg_link)s`
 """
