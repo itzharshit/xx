@@ -16,8 +16,8 @@ class Server:
     PORT = int(env.get("PORT", 8080))
     
 class Database:
-    REDIS_URI = env.get("REDIS_URI", "redis-17921.c292.ap-southeast-1-1.ec2.cloud.redislabs.com:17921")
-    REDIS_PASSWORD = env.get("REDIS_PASSWORD", "b956rSbcgMzQn2TvGlxfBiVX4ySrorW2")
+    REDIS_URI = env.get("REDIS_URI", "redis-18253.c273.us-east-1-2.ec2.redns.redis-cloud.com:18253")
+    REDIS_PASSWORD = env.get("REDIS_PASSWORD", "ztVNaJvtt3NfhIUBdDdXpiHF7TeZcw7R")
     
 # LOGGING CONFIGURATION
 LOGGER_CONFIG_JSON = {
