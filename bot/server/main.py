@@ -9,7 +9,7 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 async def home():
-    return redirect(f'https://t.me/{Telegram.BOT_USERNAME}')
+    return redirect(f'https://telegram.me/{Telegram.BOT_USERNAME}')
 
 @bp.route('/dl/<int:file_id>')
 async def transmit_file(file_id):
@@ -82,4 +82,4 @@ async def stream_file(file_id):
 async def file_deeplink(file_id):
     code = request.args.get('code') or abort(401)
 
-    return redirect(f'https://t.me/{Telegram.BOT_USERNAME}?start=file_{file_id}_{code}')
+    return redirect(f'https://telegram.me/{Telegram.BOT_USERNAME}?start=file_{file_id}_{code}')
