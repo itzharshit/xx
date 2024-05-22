@@ -16,7 +16,7 @@ s = pyshorteners.Shortener()
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files))
 @verify_user(private=True)
 async def user_file_handler(event: NewMessage.Event | Message):
-    await event.reply("One moment please...")
+    m = await event.reply("One moment please...")
     if await db.is_inserted("ban", event.sender.id):
         return await m.edit("You are banned.")
     secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
