@@ -13,7 +13,7 @@ class Telegram:
 class Server:
     BASE_URL = env.get("BASE_URL", "https://fsb-itzharshit-38ab2eaf.koyeb.app/")
     BIND_ADDRESS = env.get("BIND_ADDRESS", "0.0.0.0")
-    PORT = int(env.get("PORT", 8080))
+    PORT = int(env.get("PORT", 8000))
     
 class Database:
     REDIS_URI = env.get("REDIS_URI", "redis-18253.c273.us-east-1-2.ec2.redns.redis-cloud.com:18253")
