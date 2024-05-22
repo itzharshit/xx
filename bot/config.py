@@ -7,8 +7,8 @@ class Telegram:
     ALLOWED_USER_IDS = env.get("ALLOWED_USER_IDS", "").split()
     BOT_USERNAME = env.get("TELEGRAM_BOT_USERNAME", "Filestreamprobot")
     BOT_TOKEN = env.get("TELEGRAM_BOT_TOKEN", "2105769153:AAEcRwveGsy10YQd9qz62lbDOpm6fqJal70")
-    CHANNEL_ID = int(env.get("TELEGRAM_CHANNEL_ID", -1002089314495))
-    SECRET_CODE_LENGTH = int(env.get("SECRET_CODE_LENGTH", 12))
+    CHANNEL_ID = int(env.get("TELEGRAM_CHANNEL_ID", -1001830921462)
+    SECRET_CODE_LENGTH = int(env.get("SECRET_CODE_LENGTH", 17))
 
 class Server:
     BASE_URL = env.get("BASE_URL", "http://telegramfiles.eu.org")
