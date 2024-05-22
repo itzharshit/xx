@@ -30,7 +30,7 @@ async def user_file_handler(event: NewMessage.Event | Message):
     if (event.document and 'video' in event.document.mime_type) or event.video:
         stream_link = s.dagd.short(f'{Server.BASE_URL}/stream/{message_id}?code={secret_code}')
         await event.reply(
-            message= MediaLinksText % {'dl_link': dl_link, 'stream_link': stream_link},
+            message= MediaLinksText % {'dl_link': dl_link, 'tg_link': tg_link, 'tg_link': tg_link, 'stream_link': stream_link},
             buttons=[
                 [
                     Button.url('📥 Download file', dl_link),
