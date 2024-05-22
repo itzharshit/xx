@@ -26,9 +26,6 @@ FileLinksText = \
 **📥 Download Link:**
 `%(dl_link)s`
 
-
-**💻 Telegram File Link:**
-`%(tg_link)s`
 """
 
 MediaLinksText = \
@@ -41,8 +38,6 @@ MediaLinksText = \
 **🖥 Stream Link:**
 `%(stream_link)s`
 
-**💻 Telegram File Link:**
-`%(tg_link)s`
 """
 
 InvalidQueryText = \
