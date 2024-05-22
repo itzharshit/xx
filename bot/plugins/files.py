@@ -16,20 +16,20 @@ s = pyshorteners.Shortener()
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files))
 @verify_user(private=True)
 async def user_file_handler(event: NewMessage.Event | Message):
+    await event.reply("One moment please...")
     if await db.is_inserted("ban", event.sender.id):
-        return await event.reply("You are banned.")
+        return await m.edit("You are banned.")
     secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
     event.message.text = f'`{secret_code}`'
     message = await send_message(event.message)
     message_id = message.id
-
     dl_link = s.dagd.short(f'{Server.BASE_URL}/dl/{message_id}?code={secret_code}')
     tg_link = s.dagd.short(f'{Server.BASE_URL}/file/{message_id}?code={secret_code}')
     deep_link = f'https://t.me/{Telegram.BOT_USERNAME}?start=file_{message_id}_{secret_code}'
 
     if (event.document and 'video' in event.document.mime_type) or event.video:
         stream_link = s.dagd.short(f'{Server.BASE_URL}/stream/{message_id}?code={secret_code}')
-        await event.reply(
+        await m.edit(
             message= MediaLinksText % {'dl_link': dl_link, 'tg_link': tg_link, 'tg_link': tg_link, 'stream_link': stream_link},
             buttons=[
                 [
