@@ -42,7 +42,7 @@ async def user_file_handler(event: NewMessage.Event | Message):
             ]
         )
     else:
-        await event.reply(
+        await m.edit(
             message=FileLinksText % {'dl_link': dl_link},
             buttons=[
                 [
