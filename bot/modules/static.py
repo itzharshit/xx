@@ -51,7 +51,7 @@ File is missing in database.
 
 LinkRevokedText = \
 """
-This link is not available in database, most probably it has been deleted by its owner.
+File Successfully deleted.
 """
 
 InvalidPayloadText = \
